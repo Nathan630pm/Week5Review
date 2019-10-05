@@ -19,7 +19,7 @@ class LogoTitle extends React.Component {
 export default class username extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = { text: 'username' };
+        this.state = { text: 'username' };
     }
 
     static navigationOptions = {
@@ -74,5 +74,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffa900',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    titleText: {
+        fontSize: 30,
     }
 });
