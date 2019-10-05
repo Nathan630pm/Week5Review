@@ -1,17 +1,49 @@
 import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+import React, { Component } from 'react';
+import { View, Button, Text } from 'react-native'; 
 
-import HomeScreen from './home';
-import AboutScreen from './about';
-import SettingsScreen from './settings';
+
+
 import LoginScreen from './login';
+import Tabs from './tabs';
 
-const tabNavigator = createBottomTabNavigator({
-  Home: HomeScreen,
-  About: AboutScreen,
-  Settings: SettingsScreen
-})
 
-export default createAppContainer(tabNavigator)
+const stackNavigator = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+  },
+  tabs: {
+    navigationOptions: {
+      headerMode: 'screen',
+      title: 'Home',
+      headerRight: (
+        <Button
+          style={{ color: 'white' }}
+          onPress={() => athis.props.navigation.navigate('Login')}
+          color="#FFF"
+          title="Log Out"
+          backgroundColor="#00A600"
+        />
+      ),
+    },
+    screen: Tabs
+  }
+},
+  {
+    headerMode: 'screen', // remove top bar and make full screen
+    headerTransparent: true,
+    navigationOptions: {
+      headerVisible: true,
+    },
+    defaultNavigationOptions: { // remove swipe back gesture
+      gesturesEnabled: false,
+      headerLeft: null,
+      headerMode: 'none'
+    }}
+)
+
+
+export default createAppContainer(stackNavigator)
 
 
