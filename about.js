@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Animated } from 'react-native';
 export default class AboutScreen extends Component {
     render() {
         return (

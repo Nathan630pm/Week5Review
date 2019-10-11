@@ -1,42 +1,49 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Switch } from 'react-native';
+import firebase from './firebase';
+
+
+
+
 export default class SettingsScreen extends Component {
+
+    state = { text: 'Hello World', data: 'loading data... please wait' }
+
+
+    // componentDidMount() {
+    //     this.setState({ loading: true });
+    //     this.props.firebase.IBMCounter().on('value', snapshot => {
+    //         const usersObject = snapshot.val();
+    //         const usersList = Object.keys(usersObject).map(key => ({
+    //             ...usersObject[key],
+    //             uid: key,
+    //         }));
+    //         this.setState({
+    //             users: usersList,
+    //             loading: false,
+    //         });
+    //     });
+    // }
+
+    
+
+
+    // componentDidMount() {
+    //     // firebase.database().ref('test').set({
+    //     //     'test': 'test'
+    //     // });
+
+    //     firebase.firestore().collection("IBMCounter").on('value', res => {
+    //         this.setState({ data: res })
+    //     });
+    // }
+
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.titleText}>App Settings</Text>
-                <Text>***NOTE: These settings are not funtional.***</Text>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                    <Text>App Notifications:  </Text>
-                    <Switch></Switch>
-
-                </View>
-
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-
-                    <Text>Sounds:  </Text>
-                    <Switch></Switch>
-
-                </View>
-
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-
-                    <Text>Vibrations:  </Text>
-                    <Switch></Switch>
-
-                </View>
-
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-
-                    <Text>Light/Dark theme:  </Text>
-                    <Switch></Switch>
-
-                </View>
-
-                <Text style={styles.titleText}>App Information:</Text>
-                <Text>©2019 Nathan630pm & Nathan630pm.com</Text>
-                <Text>"The Best Time on The Clock. Hands Down."</Text>
+                {/* <Text>{JSON.stringify(this.state.data)}</Text> */}
+                <Text>Firebase settings are coming here soon!</Text>
                 
             </View>
         );

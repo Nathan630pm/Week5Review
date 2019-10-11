@@ -7,6 +7,9 @@ import { View, Button, Text, Image } from 'react-native';
 
 import LoginScreen from './login';
 import Tabs from './tabs';
+import Animated from 'react-native-reanimated';
+
+
 
 class LogoTitle extends Component {
   render() {
@@ -35,11 +38,14 @@ const stackNavigator = createStackNavigator({
         title: 'Nathan630pm.com',
         headerRight: (
           <Button
-            style={{ color: 'white' }}
+            style={{ color: 'white', underlayColor: '#000'}}
             onPress={() => { navigation.navigate('Login'); }}
             color="#FFF"
+            raised={true}
+            theme='dark'
+            overrides={true}
+            tintColor= "#3fffff"
             title="Log Out"
-            backgroundColor="#00A600"
           />
         ),
         headerStyle: {
