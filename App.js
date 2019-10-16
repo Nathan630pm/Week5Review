@@ -8,6 +8,10 @@ import { View, Button, Text, Image } from 'react-native';
 import LoginScreen from './login';
 import Tabs from './tabs';
 import Animated from 'react-native-reanimated';
+import { create } from 'uuid-js';
+import { Updates } from 'expo';
+
+
 
 
 
