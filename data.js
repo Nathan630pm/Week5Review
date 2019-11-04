@@ -19,24 +19,11 @@ export default class SettingsScreen extends Component {
             this.setState({ cars: carsJSON === null ? {} : carsJSON });
 
 
-        //     var tasks = []
-        //     cars.forEach((child) => {
-        //         tasks.push({
-        //             item: child.val().title,
-        //             key: child.key
-        //         });
-        //     });
-
-        //     this.setState({
-        //         cars: this.state.cars.cloneWithRows(tasks)
-        //     });
 
             
         });
 
-        firebase.database().ref('car').once('value', (data) => {
-            console.log("DATA: " + data.val());
-        });
+        
         
     }
 
@@ -47,10 +34,9 @@ export default class SettingsScreen extends Component {
             alert("Please select an item first!");
             return;
         }
-        // alert('Heading', 'Body', [{ text: 'option1', onPress: () => handler }])
         this.carDatabase.child(this.state.selectedId)
             .set({ item: this.state.updateData })
-        this.setState({ updateData: '' })
+        this.setState({ updateData: '', selectedId: ''})
     }
 
     deleteItem() {
@@ -68,35 +54,36 @@ export default class SettingsScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>To-Do List</Text>
-                <Text>Currently Selected Item:</Text>
-                <TextInput style={styles.TextInput} onChangeText={(updateData) => this.setState({ updateData })} value={this.state.updateData}></TextInput>
-                <Button title="Update" onPress={() => this.update()}></Button>
-                <Button title="Delete" onPress={() => this.deleteItem()}></Button>
-                <Text></Text>
-                <Text style={styles.title}>To-Do list items:</Text>
-                <Text></Text>
-                {
-                    Object.keys(this.state.cars).map((carID, index) =>
-                        <TouchableOpacity key={index} onPress={() => this.setState({ selectedId: carID, updateData: this.state.cars[carID]['item']})} >
-                            <Text>{`${JSON.stringify(this.state.cars[carID]['item'])}`}</Text>
-                        </TouchableOpacity>
-
-
-                    )
-
-                
-                }
-                
-
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
+                <Text style={styles.topTitle}>To-Do List</Text>
                 
                 
-                
-
-            </View>
+                <View style={styles.todoEditor}>
+                    <Text>Currently Selected Item:</Text>
+                    <TextInput style={styles.TextInput} onChangeText={(updateData) => this.setState({ updateData })} value={this.state.updateData}></TextInput>
+                    <View style={styles.buttons}>
+                        <Button title="Update Item" onPress={() => this.update()}></Button>
+                        <Button title="Delete Item" onPress={() => this.deleteItem()}></Button>
+                    </View>
+                    <Text></Text>
+                    <Text></Text>
+                    <Text></Text>
+                    <Text></Text>
+                </View>
+                    <View style={styles.editArea}>
+                        <Text></Text>
+                        <Text style={styles.title}>To-Do list items:</Text>
+                        <Text></Text>
+                        {
+                            Object.keys(this.state.cars).map((carID, index) =>
+                                <TouchableOpacity key={index} onPress={() => this.setState({ selectedId: carID, updateData: this.state.cars[carID]['item'] })} >
+                                    <Text style={styles.items}>- {`${JSON.stringify(this.state.cars[carID]['item'])}`}</Text>
+                                </TouchableOpacity>
+                            )
+                        }
+                            <Text></Text>
+                    
+                </View>
+                </View>
         );
     }
 }
@@ -124,5 +111,35 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
+    },
+    topTitle: {
+        fontSize: 30,
+        top: 0,
+        position: "absolute",
+    },
+    editArea: {
+        position: "absolute",
+        bottom: 0,
+        width: '100%',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    items: {
+        padding: 5,
+        fontSize: 15,
+    },
+    todoEditor: {
+        paddingBottom: 5,
+        width: '100%',
+        textAlign: 'justify',
+        position: 'absolute',
+        top: 30,
+    },
+    buttons: {
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     }
+
 });

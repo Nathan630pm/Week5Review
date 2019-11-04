@@ -39,7 +39,7 @@ const stackNavigator = createStackNavigator({
           fontWeight: 'bold',
         },
         headerLeft: <LogoTitle />,
-        title: 'Nathan630pm.com',
+        title: 'Nathan630pm',
         headerRight: (
           <Button
             style={{ color: 'white', underlayColor: '#000'}}

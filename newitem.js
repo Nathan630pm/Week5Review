@@ -74,7 +74,7 @@ export default class SettingsScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Add item to your To-Do list:</Text>
+                <Text style={styles.title}>Add item to your To-Do list:</Text>
                 {/* <TextInput placeholder="New Item..." placeholderTextColor="grey" style={styles.TextInput}></TextInput> */}
                 <TextInput placeholder="New Item..." placeholderTextColor="black" style={styles.TextInput} onChangeText={(newData) => this.setState({ newData })} value={this.state.newData}/>
                 <Button title="Create Item" onPress={this.create}></Button>
@@ -106,5 +106,10 @@ const styles = StyleSheet.create({
         width: '100%',
         marginBottom: 30,
         textAlign: "center"
-    }
+    },
+    title: {
+        fontSize: 30,
+        top: 0,
+        position: "absolute",
+    },
 });
