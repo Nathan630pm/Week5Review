@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Switch, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, Switch, TouchableOpacity, Button} from 'react-native';
 import firebase from './firebase';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, FlatList } from 'react-native-gesture-handler';
+import DialogInput from 'react-native-dialog-input';
 
 // const firebase = firebase.database();
 
@@ -10,56 +11,88 @@ export default class SettingsScreen extends Component {
 
     carDatabase = firebase.database().ref('car');
 
-    state = { cars: {}, selectedId: '' }
+    state = { cars: {}, selectedId: '', updateData: ''}
 
     componentDidMount() {
         this.carDatabase.on('value', cars => {
             const carsJSON = cars.val();
             this.setState({ cars: carsJSON === null ? {} : carsJSON });
-        })
 
+
+        //     var tasks = []
+        //     cars.forEach((child) => {
+        //         tasks.push({
+        //             item: child.val().title,
+        //             key: child.key
+        //         });
+        //     });
+
+        //     this.setState({
+        //         cars: this.state.cars.cloneWithRows(tasks)
+        //     });
+
+            
+        });
+
+        firebase.database().ref('car').once('value', (data) => {
+            console.log("DATA: " + data.val());
+        });
         
     }
 
-    create() {
-        this.carDatabase
-            .push({ color: 'green' });
-    }
+   
 
     update() {
         if (this.state.selectedId === '') {
             alert("Please select an item first!");
             return;
         }
+        // alert('Heading', 'Body', [{ text: 'option1', onPress: () => handler }])
         this.carDatabase.child(this.state.selectedId)
-            .set({ color: "orange" })
+            .set({ item: this.state.updateData })
+        this.setState({ updateData: '' })
     }
 
-    deleteCar() {
+    deleteItem() {
         if (this.state.selectedId === '') {
             alert("Please select an item first!");
             return;
         }
         this.carDatabase.child(this.state.selectedId)
             .set(null)
-        this.setState({selectedId: ''})
+        this.setState({selectedId: '', updateData: ''})
     }
+
+   
 
     render() {
         return (
             <View style={styles.container}>
-                <TextInput value={this.state.selectedId} style={styles.TextInput}></TextInput>
-                <Button title="Create" onPress={() => this.create()}></Button>
+                <Text style={styles.title}>To-Do List</Text>
+                <Text>Currently Selected Item:</Text>
+                <TextInput style={styles.TextInput} onChangeText={(updateData) => this.setState({ updateData })} value={this.state.updateData}></TextInput>
                 <Button title="Update" onPress={() => this.update()}></Button>
-                <Button title="Delete" onPress={() => this.deleteCar()}></Button>
+                <Button title="Delete" onPress={() => this.deleteItem()}></Button>
+                <Text></Text>
+                <Text style={styles.title}>To-Do list items:</Text>
+                <Text></Text>
                 {
                     Object.keys(this.state.cars).map((carID, index) =>
-                        <TouchableOpacity key={index} onPress={() => this.setState({ selectedId: carID})} >
-                            <Text>{`${carID}: ${JSON.stringify(this.state.cars[carID])}`}</Text>
+                        <TouchableOpacity key={index} onPress={() => this.setState({ selectedId: carID, updateData: this.state.cars[carID]['item']})} >
+                            <Text>{`${JSON.stringify(this.state.cars[carID]['item'])}`}</Text>
                         </TouchableOpacity>
-                    )
-                }
 
+
+                    )
+
+                
+                }
+                
+
+                <Text></Text>
+                <Text></Text>
+                <Text></Text>
+                
                 
                 
 
@@ -88,5 +121,8 @@ const styles = StyleSheet.create({
         width: '100%',
         marginBottom: 30,
         textAlign: "center"
+    },
+    title: {
+        fontSize: 30,
     }
 });

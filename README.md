@@ -17,3 +17,9 @@ Click 'Log Out' on the header.
 
 USING THE NAVIGATION:
 the app uses the tab navigation, you can click on pages to view them.
+
+# ASSIGNMENT 2 INFO:
+
+The page "New Item" is to add a new item to your to do list.
+
+the page "To Do List" is where you can update and delete the current items
